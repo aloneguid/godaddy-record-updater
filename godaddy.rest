@@ -1,0 +1,48 @@
+@key = key
+@secret = secret
+@auth = sso-key {{key}}:{{secret}}
+@domain = domain
+@shopperId = shopper_id
+
+###
+
+# get domain record details
+GET https://api.godaddy.com/v1/domains/{{domain}}/records/A/lxmoon
+Authorization: {{auth}}
+X-Shopper-Id: {{shopperId}}
+
+###
+
+# get list of available domains
+GET https://api.godaddy.com/v1/domains?statuses=ACTIVE
+Authorization: {{auth}}
+X-Shopper-Id: {{shopperId}}
+
+###
+
+# get domain details
+GET https://api.godaddy.com/v1/domains/{{domain}}
+Authorization: {{auth}}
+X-Shopper-Id: {{shopperId}}
+
+###
+
+# update my A record
+PUT https://api.godaddy.com/v1/domains/{{domain}}/records/A/lxmoon
+Authorization: {{auth}}
+X-Shopper-Id: {{shopperId}}
+Content-Type: application/json
+
+[
+  {
+    "data": "1.1.1.1",
+    "name": "lxmoon",
+    "ttl": 1800,
+    "type": "A"
+  }
+]
+
+###
+
+GET http://checkip.dyndns.org/
+Content-Type: application/json
